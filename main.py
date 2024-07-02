@@ -25,8 +25,8 @@ with webdriver.Chrome() as d:
     with open("jobs.txt", "w") as f:
         f.write(str(len(cur_jobs)))
 
-    if len(cur_jobs) > prev_jobs_count:
-        new_jobs_count = len(cur_jobs) - prev_jobs_count
+    if len(cur_jobs) + 1 > prev_jobs_count:
+        new_jobs_count = len(cur_jobs) + 1 - prev_jobs_count
         new_jobs = cur_jobs[0:new_jobs_count]
 
         content = ""
