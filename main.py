@@ -1,3 +1,5 @@
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from smtplib import SMTP
@@ -11,7 +13,14 @@ load_dotenv()
 email = os.getenv("EMAIL")
 password = os.getenv("PASSWORD")
 
-with webdriver.Chrome() as d:
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+service = Service('/usr/bin/chromedriver')
+
+with webdriver.Chrome(service=service, options=chrome_options) as d:
     d.get("https://github.com/Ouckah/Summer2025-Internships")
     d.maximize_window()
     cur_jobs = d.find_elements(By.CSS_SELECTOR, value="table")
