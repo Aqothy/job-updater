@@ -16,7 +16,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12' # install the python version needed
+          python-version: '3.10' # install the python version needed
           
       - name: install python packages
         run: |
@@ -27,7 +27,7 @@ jobs:
         env:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
-        run: python main.py
+        run: python3 main.py
           
       - name: commit files
         run: |
