@@ -3,7 +3,7 @@ name: run main.py
 on:
   schedule:
     # - cron: '15 0 * * *' # At 00:15 UTC every day
-    - cron: '*/5 * * * *'
+    - cron: '* * * * *'
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12.3' # install the python version needed
+          python-version: '3.12' # install the python version needed
           
       - name: install python packages
         run: |
