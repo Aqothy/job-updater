@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/aqothy/Documents/Code/Job tracker/.venv/bin/python3.12" "$0" "$@"
+'''exec' "/Users/aqothy/Code/Personal/Job tracker/.venv/bin/python3.12" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
