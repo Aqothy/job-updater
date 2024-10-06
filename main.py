@@ -18,9 +18,9 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
-# service = Service('/usr/bin/chromedriver')
+service = Service('/usr/bin/chromedriver')
 
-with webdriver.Chrome(options=chrome_options) as d:
+with webdriver.Chrome(service=service, options=chrome_options) as d:
     d.get("https://github.com/Ouckah/Summer2025-Internships")
     d.maximize_window()
     cur_jobs = d.find_elements(By.CSS_SELECTOR, value="table")
@@ -40,19 +40,17 @@ with webdriver.Chrome(options=chrome_options) as d:
 
         content = ""
         for j in new_jobs:
-            print(j)
             for t in j.text.split("\n"):
                 content += t + "\n"
 
-        # msg = MIMEMultipart()
-        # msg['From'] = email
-        # msg['To'] = email
-        # msg['Subject'] = f"{new_jobs_count} new jobs posted!"
-        # msg.attach(MIMEText(content, 'plain', 'utf-8'))
+        msg = MIMEMultipart()
+        msg['From'] = email
+        msg['To'] = email
+        msg['Subject'] = f"{new_jobs_count} new jobs posted!"
+        msg.attach(MIMEText(content, 'plain', 'utf-8'))
 
-        # with SMTP("smtp.gmail.com") as c:
-        #     c.starttls()
-        #     c.login(user=email, password=password)
-        #     c.sendmail(from_addr=email,
-        #                to_addrs=email, msg=msg.as_string())
-        
+        with SMTP("smtp.gmail.com") as c:
+            c.starttls()
+            c.login(user=email, password=password)
+            c.sendmail(from_addr=email,
+                       to_addrs=email, msg=msg.as_string())

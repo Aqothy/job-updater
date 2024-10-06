@@ -2,8 +2,7 @@ name: run main.py
 
 on:
   schedule:
-    # - cron: '15 0 * * *' # At 00:15 UTC every day
-    - cron: '* * * * *'
+    - cron: '5 2 * * *' # At 03:00 EST every day
 
 jobs:
   build:
@@ -14,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           
@@ -31,3 +30,16 @@ jobs:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: python main.py
+        
+      - name: commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+          
+      - name: push changes
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main 
